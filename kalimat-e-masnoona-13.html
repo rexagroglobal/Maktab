@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>کلمات مسنونہ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Gulzar&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-1:#0e1a17;
+    --gold:#c9a24b;
+    --gold-soft:#e6cf8f;
+    --parchment:#f3ead9;
+    --line:rgba(201,162,75,0.35);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{
+    margin:0; height:100%; width:100%;
+    background:
+      radial-gradient(ellipse at 50% 0%, #1c352c 0%, var(--bg-1) 55%, #09120f 100%);
+    color:var(--parchment);
+    overflow:hidden;
+    font-family:Georgia,'Times New Roman',serif;
+  }
+
+  /* ===== Page switching ===== */
+  .page{
+    display:none;
+    height:100vh; width:100vw;
+    flex-direction:column;
+  }
+  .page.active{ display:flex; }
+
+  /* ===================== LANDING PAGE ===================== */
+  #page-landing{
+    align-items:center; justify-content:space-between;
+    text-align:center;
+    padding:clamp(24px,5vh,60px) clamp(20px,6vw,80px);
+    font-family:'Noto Nastaliq Urdu', serif;
+  }
+  .masjid-name{
+    font-size:clamp(20px,3.1vw,40px);
+    color:var(--gold-soft);
+    line-height:1.7;
+    max-width:900px;
+    padding-top:clamp(10px,2vh,26px);
+  }
+  .center-block{
+    flex:1; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    gap:clamp(18px,3vh,34px);
+  }
+  .ornament{ font-size:clamp(22px,2.6vw,32px); color:var(--gold); letter-spacing:8px; }
+  .rule{
+    width:clamp(120px,14vw,220px); height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .package-name{
+    font-family:'Noto Nastaliq Urdu', serif; font-weight:700;
+    font-size:clamp(48px,8vw,110px);
+    color:var(--parchment);
+    text-shadow:0 0 30px rgba(201,162,75,0.22);
+    line-height:1.9;
+    padding-top:0.15em;
+  }
+  .subtitle{
+    font-family:Georgia, serif; font-style:italic;
+    font-size:clamp(14px,1.5vw,19px);
+    color:rgba(243,234,217,0.55); letter-spacing:1px;
+  }
+  .enter-btn{
+    display:inline-flex; align-items:center; gap:12px;
+    background:rgba(201,162,75,0.1);
+    border:1px solid var(--gold);
+    color:var(--gold-soft);
+    font-family:'Noto Nastaliq Urdu', serif;
+    font-size:clamp(20px,2.4vw,30px);
+    padding:16px 48px; border-radius:16px;
+    text-decoration:none; cursor:pointer;
+    transition:background .2s ease, transform .15s ease;
+  }
+  .enter-btn:hover{ background:rgba(201,162,75,0.22); }
+  .enter-btn:active{ transform:scale(0.97); }
+  .footer{
+    font-family:Georgia, serif;
+    font-size:clamp(12px,1.1vw,15px);
+    color:rgba(243,234,217,0.4); letter-spacing:0.5px;
+  }
+
+  /* ===================== CONTENTS PAGE ===================== */
+  #page-contents{
+    align-items:center;
+    padding:clamp(24px,5vh,56px) clamp(20px,6vw,80px);
+    font-family:'Noto Nastaliq Urdu', serif;
+  }
+  .top-name{
+    font-size:clamp(15px,1.6vw,20px);
+    color:rgba(230,207,143,0.7);
+    text-align:center; max-width:700px; line-height:1.6;
+  }
+  .title{
+    font-family:'Noto Nastaliq Urdu', serif; font-weight:700;
+    font-size:clamp(30px,4vw,50px);
+    color:var(--parchment);
+    line-height:1.9;
+    padding-top:0.15em;
+    margin-top:clamp(10px,2vh,20px);
+    margin-bottom:clamp(6px,1.2vh,12px);
+  }
+  .rule-title{
+    width:clamp(90px,10vw,150px); height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin-bottom:clamp(28px,5vh,60px);
+  }
+  .chapters{
+    flex:1; display:flex; flex-direction:column;
+    justify-content:center; align-items:center;
+    gap:clamp(22px,3.5vh,40px);
+    width:100%; max-width:640px;
+  }
+  .chapter-link{
+    width:100%; display:flex; align-items:center; justify-content:space-between;
+    background:rgba(201,162,75,0.07);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:clamp(22px,3.4vh,34px) clamp(28px,4vw,44px);
+    text-decoration:none; color:var(--parchment);
+    cursor:pointer;
+    transition:background .2s ease, transform .15s ease, border-color .2s ease;
+  }
+  .chapter-link:hover{ background:rgba(201,162,75,0.16); border-color:var(--gold); transform:translateY(-2px); }
+  .chapter-link:active{ transform:scale(0.98); }
+  .chapter-no{ font-family:Georgia, serif; font-size:clamp(13px,1.2vw,16px); color:var(--gold); display:block; margin-bottom:6px; }
+  .chapter-name{ font-family:'Noto Nastaliq Urdu', serif; font-weight:700; font-size:clamp(26px,3.4vw,40px); color:var(--gold-soft); line-height:1.8; padding-top:0.15em; }
+  .chapter-en{ font-family:Georgia, serif; font-style:italic; font-size:clamp(12px,1.1vw,14px); color:rgba(243,234,217,0.5); margin-top:4px; }
+  .arrow{ font-size:clamp(20px,2.4vw,28px); color:var(--gold); flex-shrink:0; margin-inline-start:16px; }
+  .home-btn{
+    font-family:Georgia, serif;
+    font-size:clamp(13px,1.2vw,16px);
+    color:rgba(243,234,217,0.5);
+    text-decoration:none; cursor:pointer;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:8px 20px;
+    margin-top:clamp(16px,2.5vh,26px);
+    background:none;
+  }
+  .home-btn:hover{ color:var(--gold-soft); border-color:var(--gold); }
+
+  /* ===================== CHAPTER (SLIDE) PAGES ===================== */
+  .chapter-page .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: clamp(12px,1.8vh,22px) clamp(20px,4vw,56px) 0;
+    flex:0 0 auto;
+  }
+  .chapter-page .brand{
+    font-family:'Noto Nastaliq Urdu', serif; font-weight:700;
+    font-size:clamp(18px,2.1vw,26px);
+    color:var(--gold-soft);
+    line-height:1.7;
+    padding-top:0.15em;
+  }
+  .chapter-page .counter{
+    font-family:'Amiri', serif;
+    font-size:clamp(14px,1.4vw,19px);
+    color:var(--gold);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:5px 18px;
+    background:rgba(201,162,75,0.06);
+  }
+  .chapter-page .dots{ display:flex; gap:7px; flex-wrap:wrap; max-width:52vw; justify-content:center; }
+  .chapter-page .dot{
+    width:10px; height:10px; border-radius:50%;
+    background:rgba(243,234,217,0.18);
+    border:1px solid var(--line);
+    cursor:pointer; padding:0;
+    transition:all .25s ease;
+  }
+  .chapter-page .dot.active{ background:var(--gold); box-shadow:0 0 8px var(--gold); transform:scale(1.15); }
+
+  .chapter-page .main{
+    flex:1 1 auto;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    padding: clamp(6px,1vh,14px) clamp(24px,6vw,90px);
+    overflow:hidden;
+  }
+  .chapter-page .slide{
+    width:100%; max-width:1180px; max-height:100%;
+    display:none; flex-direction:column;
+    align-items:center; text-align:center;
+    overflow-y:auto;
+    animation:fadeUp .5s ease;
+    padding-bottom:4px;
+  }
+  .chapter-page .slide.active{ display:flex; }
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
+
+  .chapter-page .kalima-no{
+    font-family:'Noto Nastaliq Urdu', serif;
+    font-size:clamp(16px,1.7vw,22px);
+    color:var(--gold);
+    margin-bottom:2px;
+  }
+  .chapter-page .kalima-urdu-name{
+    font-family:'Noto Nastaliq Urdu', serif; font-weight:700;
+    font-size:clamp(28px,3.8vw,46px);
+    color:var(--parchment);
+    line-height:2.1;
+    padding-top:0.3em;
+    margin:0 0 clamp(6px,1.4vh,16px);
+  }
+  .chapter-page .rule{
+    width:clamp(70px,8vw,130px); height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin-bottom:clamp(12px,2vh,22px);
+  }
+  .chapter-page .arabic{
+    font-family:'Scheherazade New', serif;
+    direction:rtl;
+    font-size:clamp(24px,3.6vw,44px);
+    line-height:2;
+    color:var(--gold-soft);
+    text-shadow:0 0 20px rgba(201,162,75,0.16);
+    max-width:1050px;
+    padding:0 8px;
+  }
+  .chapter-page .arabic-line{ margin-bottom:0.35em; }
+  .chapter-page .meaning-wrap{
+    margin-top:clamp(14px,2.2vh,26px);
+    display:flex; flex-direction:column; gap:8px;
+    max-width:900px;
+  }
+  .chapter-page .meaning-urdu{
+    font-family:'Noto Nastaliq Urdu', serif;
+    direction:rtl;
+    font-size:clamp(15px,1.6vw,20px);
+    color:rgba(243,234,217,0.88);
+    line-height:1.9;
+  }
+  .chapter-page .meaning-en{
+    font-size:clamp(13px,1.2vw,16px);
+    font-style:italic;
+    color:rgba(243,234,217,0.55);
+  }
+  .chapter-page .bottombar{
+    flex:0 0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: clamp(8px,1.6vh,16px) clamp(20px,4vw,56px) clamp(14px,2.4vh,26px);
+    gap:10px; flex-wrap:wrap;
+  }
+  .chapter-page .nav-btn{
+    display:flex; align-items:center; gap:8px;
+    background:rgba(201,162,75,0.08);
+    border:1px solid var(--line);
+    color:var(--gold-soft);
+    font-family:'Amiri', serif;
+    font-size:clamp(14px,1.5vw,19px);
+    padding:10px 22px;
+    border-radius:12px;
+    cursor:pointer;
+    transition:background .2s ease, transform .15s ease;
+    user-select:none;
+    text-decoration:none;
+  }
+  .chapter-page .nav-btn:hover{ background:rgba(201,162,75,0.18); }
+  .chapter-page .nav-btn:active{ transform:scale(0.96); }
+  .chapter-page .nav-btn:disabled{ opacity:0.25; cursor:default; }
+  .chapter-page .toggle-btn{
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--gold);
+    font-family:'Noto Nastaliq Urdu', serif;
+    font-size:clamp(13px,1.4vw,17px);
+    padding:8px 18px;
+    border-radius:999px;
+    cursor:pointer;
+  }
+  .chapter-page .toggle-btn.on{ background:var(--gold); color:#0e1a17; font-weight:700; }
+  .hidden{ display:none !important; }
+  ::-webkit-scrollbar{ width:6px; }
+  ::-webkit-scrollbar-thumb{ background:rgba(201,162,75,0.35); border-radius:3px; }
+
+  @media (max-width:640px){
+    .chapter-page .topbar{ padding:10px 14px 0; }
+    .chapter-page .bottombar{ padding:8px 14px 14px; justify-content:center; }
+    .chapter-page .dots{ order:3; max-width:100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== PAGE 1: LANDING ===================== -->
+<div class="page active" id="page-landing">
+  <div class="masjid-name">الجامعہ الاسلامیہ دھتکیڈیہ مسجد جمشید پور</div>
+  <div class="center-block">
+    <div class="ornament">﷽</div>
+    <div class="rule"></div>
+    <div class="package-name">کلمات مسنونہ</div>
+    <div class="subtitle">Essential Recitations for Maktab Students</div>
+    <button class="enter-btn" onclick="showPage('page-contents')">فہرست دیکھیں ◀</button>
+  </div>
+  <div class="footer">برائے تدریس — سمارٹ اسکرین</div>
+</div>
+
+<!-- ===================== PAGE 2: CONTENTS ===================== -->
+<div class="page" id="page-contents">
+  <div class="top-name">الجامعہ الاسلامیہ دھتکیڈیہ مسجد جمشید پور</div>
+  <div class="title">فہرست</div>
+  <div class="rule-title"></div>
+  <div class="chapters">
+    <div class="chapter-link" onclick="showPage('page-kalima')">
+      <div>
+        <span class="chapter-no">باب اول</span>
+        <div class="chapter-name">کلمات اسلام</div>
+        <div class="chapter-en">The Five Kalimas</div>
+      </div>
+      <span class="arrow">◀</span>
+    </div>
+    <div class="chapter-link" onclick="showPage('page-namaz')">
+      <div>
+        <span class="chapter-no">باب دوم</span>
+        <div class="chapter-name">کلمات نماز</div>
+        <div class="chapter-en">Namaz Recitations</div>
+      </div>
+      <span class="arrow">◀</span>
+    </div>
+    <div class="chapter-link" onclick="showPage('page-masnoon')">
+      <div>
+        <span class="chapter-no">باب سوم</span>
+        <div class="chapter-name">مسنون دعائیں</div>
+        <div class="chapter-en">Sunnah Duas for Daily Life</div>
+      </div>
+      <span class="arrow">◀</span>
+    </div>
+  </div>
+  <button class="home-btn" onclick="showPage('page-landing')">ابتدائی صفحہ</button>
+</div>
+
+<!-- ===================== PAGE 3: KALIMA CHAPTER ===================== -->
+<div class="page chapter-page" id="page-kalima">
+  <div class="topbar">
+    <div class="brand">کلمات اسلام</div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <button class="toggle-btn" id="kalimaMeaningToggle" onclick="toggleMeaning('kalima')">ترجمہ دکھائیں</button>
+      <div class="counter" id="kalimaCounter">1 / 8</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="slide active" data-index="0">
+      <div class="kalima-no">پہلا کلمہ</div>
+      <div class="kalima-urdu-name">کلمہ طیّبہ</div>
+      <div class="rule"></div>
+      <div class="arabic">لَا إِلٰهَ إِلَّا اللّٰهُ مُحَمَّدٌ رَسُولُ اللّٰهِ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اللہ کے سوا کوئی معبود نہیں، محمد ﷺ اللہ کے رسول ہیں۔</div>
+        <div class="meaning-en">There is no god but Allah, Muhammad is the Messenger of Allah.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="1">
+      <div class="kalima-no">دوسرا کلمہ</div>
+      <div class="kalima-urdu-name">کلمہ شہادت</div>
+      <div class="rule"></div>
+      <div class="arabic">أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللّٰهُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">میں گواہی دیتا ہوں کہ اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے اس کا کوئی شریک نہیں، اور میں گواہی دیتا ہوں کہ محمد ﷺ اس کے بندے اور رسول ہیں۔</div>
+        <div class="meaning-en">I bear witness that there is no god but Allah, alone without partner, and that Muhammad is His servant and Messenger.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="2">
+      <div class="kalima-no">تیسرا کلمہ</div>
+      <div class="kalima-urdu-name">کلمہ تمجید</div>
+      <div class="rule"></div>
+      <div class="arabic">سُبْحَانَ اللّٰهِ وَالْحَمْدُ لِلّٰهِ وَلَا إِلٰهَ إِلَّا اللّٰهُ وَاللّٰهُ أَكْبَرُ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللّٰهِ الْعَلِيِّ الْعَظِيمِ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اللہ پاک ہے، اور تمام تعریفیں اللہ کے لیے ہیں، اور اللہ کے سوا کوئی معبود نہیں، اور اللہ سب سے بڑا ہے، اور کوئی طاقت اور قوت نہیں مگر اللہ بلند و بزرگ کی مدد سے۔</div>
+        <div class="meaning-en">Glory be to Allah, praise be to Allah, there is no god but Allah, Allah is the Greatest; there is no power or strength except with Allah, the Exalted, the Mighty.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="3">
+      <div class="kalima-no">چوتھا کلمہ</div>
+      <div class="kalima-urdu-name">کلمہ توحید</div>
+      <div class="rule"></div>
+      <div class="arabic">لَا إِلٰهَ إِلَّا اللّٰهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ يُحْيِي وَيُمِيتُ وَهُوَ حَيٌّ لَا يَمُوتُ أَبَدًا أَبَدًا ذُو الْجَلَالِ وَالْإِكْرَامِ بِيَدِهِ الْخَيْرُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے اس کا کوئی شریک نہیں، اسی کی بادشاہی ہے اور اسی کے لیے تمام تعریفیں ہیں، وہ زندہ کرتا اور مارتا ہے، اور وہ ہمیشہ زندہ ہے، کبھی نہیں مرے گا، وہ عظمت اور بزرگی والا ہے، بھلائی اسی کے ہاتھ میں ہے، اور وہ ہر چیز پر قادر ہے۔</div>
+        <div class="meaning-en">There is no god but Allah, alone without partner; His is the dominion and His is the praise. He gives life and causes death, and He is Ever-Living, never dying. Full of majesty and honour, all good is in His hand, and He has power over all things.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="4">
+      <div class="kalima-no">پانچواں کلمہ</div>
+      <div class="kalima-urdu-name">کلمہ استغفار</div>
+      <div class="rule"></div>
+      <div class="arabic">أَسْتَغْفِرُ اللّٰهَ رَبِّي مِنْ كُلِّ ذَنْبٍ أَذْنَبْتُهُ عَمْدًا أَوْ خَطَأً سِرًّا أَوْ عَلَانِيَةً وَأَتُوبُ إِلَيْهِ مِنَ الذَّنْبِ الَّذِي أَعْلَمُ وَمِنَ الذَّنْبِ الَّذِي لَا أَعْلَمُ إِنَّكَ أَنْتَ عَلَّامُ الْغُيُوبِ وَسَتَّارُ الْعُيُوبِ وَغَفَّارُ الذُّنُوبِ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللّٰهِ الْعَلِيِّ الْعَظِيمِ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">میں اپنے رب اللہ سے ہر اس گناہ کی معافی مانگتا ہوں جو میں نے جان بوجھ کر یا غلطی سے، چھپ کر یا ظاہر میں کیا، اور میں اس گناہ سے بھی توبہ کرتا ہوں جسے میں جانتا ہوں اور جسے نہیں جانتا۔ بے شک تو غیب کی باتوں کو خوب جاننے والا، عیبوں کو چھپانے والا اور گناہوں کو بخشنے والا ہے، اور کوئی طاقت اور قوت نہیں مگر اللہ بلند و بزرگ کی مدد سے۔</div>
+        <div class="meaning-en">I seek forgiveness from Allah, my Lord, for every sin I have committed, knowingly or unknowingly, secretly or openly, and I repent to Him from the sin I know and the sin I do not know. Indeed You are the Knower of the unseen, the Concealer of faults, the Forgiver of sins; there is no power or strength except with Allah, the Exalted, the Mighty.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="5">
+      <div class="kalima-no">چھٹا کلمہ</div>
+      <div class="kalima-urdu-name">کلمہ رَدِّ کُفر</div>
+      <div class="rule"></div>
+      <div class="arabic">اَللّٰهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ أَنْ أُشْرِكَ بِكَ شَيْئًا وَأَنَا أَعْلَمُ بِهِ، تُبْتُ عَنْهُ وَتَبَرَّأْتُ مِنَ الْكُفْرِ وَالشِّرْكِ وَالْكِذْبِ وَالْغِيبَةِ وَالْبِدْعَةِ وَالنَّمِيمَةِ وَالْفَوَاحِشِ وَالْبُهْتَانِ وَالْمَعَاصِي كُلِّهَا، أَسْلَمْتُ وَآمَنْتُ وَأَقُولُ لَا إِلٰهَ إِلَّا اللّٰهُ مُحَمَّدٌ رَسُولُ اللّٰهِ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اے اللہ! میں تیری پناہ مانگتا ہوں اس بات سے کہ میں تیرے ساتھ کسی چیز کو شریک کروں جانتے بوجھتے ہوئے، میں اس سے توبہ کرتا ہوں اور بیزار ہوتا ہوں کفر، شرک، جھوٹ، غیبت، بدعت، چغلی، بے حیائی کے کاموں، بہتان اور تمام گناہوں سے، میں اسلام لایا اور ایمان لایا اور کہتا ہوں کہ اللہ کے سوا کوئی معبود نہیں، محمد ﷺ اللہ کے رسول ہیں۔</div>
+        <div class="meaning-en">O Allah, I seek refuge in You from knowingly associating any partner with You. I repent from it and disown disbelief, polytheism, lying, backbiting, innovation, tale-carrying, indecency, slander, and all sins. I have submitted, I have believed, and I declare there is no god but Allah, Muhammad is the Messenger of Allah.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="6">
+      <div class="kalima-urdu-name">ایمانِ مُجمَل</div>
+      <div class="rule"></div>
+      <div class="arabic">آمَنْتُ بِاللّٰهِ كَمَا هُوَ بِأَسْمَائِهِ وَصِفَاتِهِ وَقَبِلْتُ جَمِيعَ أَحْكَامِهِ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">میں اللہ پر ایمان لایا جیسا کہ وہ اپنے ناموں اور صفتوں کے ساتھ ہے، اور میں نے اس کے تمام احکام کو قبول کیا۔</div>
+        <div class="meaning-en">I believe in Allah as He is, with His Names and Attributes, and I accept all His commandments.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="7">
+      <div class="kalima-urdu-name">ایمانِ مُفَصَّل</div>
+      <div class="rule"></div>
+      <div class="arabic">آمَنْتُ بِاللّٰهِ وَمَلَائِكَتِهِ وَكُتُبِهِ وَرُسُلِهِ وَالْيَوْمِ الْآخِرِ وَالْقَدْرِ خَيْرِهِ وَشَرِّهِ مِنَ اللّٰهِ تَعَالٰى وَالْبَعْثِ بَعْدَ الْمَوْتِ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">میں ایمان لایا اللہ پر، اس کے فرشتوں پر، اس کی کتابوں پر، اس کے رسولوں پر، قیامت کے دن پر، اور اس بات پر کہ تقدیر کی بھلائی اور برائی اللہ تعالیٰ کی طرف سے ہے، اور مرنے کے بعد دوبارہ اٹھائے جانے پر۔</div>
+        <div class="meaning-en">I believe in Allah, His angels, His Books, His Messengers, the Last Day, and that destiny — its good and bad — is from Allah the Exalted, and in resurrection after death.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottombar">
+    <button class="nav-btn" onclick="goSlide('kalima',-1)">◀ &nbsp;پچھلا</button>
+    <button class="nav-btn" onclick="showPage('page-contents')">فہرست</button>
+    <div class="dots" id="kalimaDots"></div>
+    <button class="nav-btn" onclick="goSlide('kalima',1)">اگلا&nbsp; ▶</button>
+  </div>
+</div>
+
+<!-- ===================== PAGE 4: NAMAZ CHAPTER ===================== -->
+<div class="page chapter-page" id="page-namaz">
+  <div class="topbar">
+    <div class="brand">کلمات نماز</div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <button class="toggle-btn" id="namazMeaningToggle" onclick="toggleMeaning('namaz')">ترجمہ دکھائیں</button>
+      <div class="counter" id="namazCounter">1 / 17</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="slide active" data-index="0">
+      <div class="kalima-urdu-name">ثناء</div>
+      <div class="rule"></div>
+      <div class="arabic">سُبْحَانَكَ اللّٰهُمَّ وَبِحَمْدِكَ، وَتَبَارَكَ اسْمُكَ، وَتَعَالٰى جَدُّكَ، وَلَا إِلٰهَ غَيْرُكَ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اے اللہ! تو پاک ہے اپنی تعریف کے ساتھ، اور تیرا نام بابرکت ہے، اور تیری شان بلند ہے، اور تیرے سوا کوئی معبود نہیں۔</div>
+        <div class="meaning-en">Glory be to You, O Allah, and praise be to You. Blessed is Your name, exalted is Your majesty, and there is no god besides You.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="1">
+      <div class="kalima-urdu-name">سورۃ الفاتحہ</div>
+      <div class="rule"></div>
+      <div class="arabic">
+        <div class="arabic-line">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</div>
+        <div class="arabic-line">الْحَمْدُ لِلّٰهِ رَبِّ الْعَالَمِينَ</div>
+        <div class="arabic-line">الرَّحْمٰنِ الرَّحِيمِ</div>
+        <div class="arabic-line">مَالِكِ يَوْمِ الدِّينِ</div>
+        <div class="arabic-line">إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ</div>
+        <div class="arabic-line">اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ</div>
+        <div class="arabic-line">صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ</div>
+      </div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اللہ کے نام سے جو نہایت مہربان، رحم فرمانے والا ہے۔ سب تعریفیں اللہ کے لیے ہیں جو تمام جہانوں کا رب ہے۔ نہایت مہربان، رحم فرمانے والا۔ روزِ جزا کا مالک۔ ہم صرف تیری عبادت کرتے ہیں اور صرف تجھ ہی سے مدد مانگتے ہیں۔ ہمیں سیدھا راستہ دکھا۔ اُن لوگوں کا راستہ جن پر تُو نے انعام کیا، نہ کہ اُن کا جن پر غضب ہوا اور نہ گمراہوں کا۔</div>
+        <div class="meaning-en">In the name of Allah, the Most Gracious, the Most Merciful. All praise is for Allah, Lord of all the worlds. The Most Gracious, the Most Merciful. Master of the Day of Judgment. You alone we worship, You alone we ask for help. Guide us on the straight path — the path of those You have blessed, not of those who earned Your anger, nor of those who went astray.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="2">
+      <div class="kalima-urdu-name">سورۃ الاخلاص</div>
+      <div class="rule"></div>
+      <div class="arabic">
+        <div class="arabic-line">قُلْ هُوَ اللّٰهُ أَحَدٌ</div>
+        <div class="arabic-line">اللّٰهُ الصَّمَدُ</div>
+        <div class="arabic-line">لَمْ يَلِدْ وَلَمْ يُولَدْ</div>
+        <div class="arabic-line" style="margin-bottom:0;">وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ</div>
+      </div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">کہہ دیجیے وہ اللہ ایک ہے۔ اللہ بے نیاز ہے۔ نہ اس نے کسی کو جنا اور نہ وہ کسی سے جنا گیا۔ اور کوئی اس کا ہمسر نہیں۔</div>
+        <div class="meaning-en">Say, He is Allah, the One. Allah, the Eternal Refuge. He neither begets nor is born. Nor is there to Him any equivalent.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="3">
+      <div class="kalima-urdu-name">تسبیحِ رکوع</div>
+      <div class="rule"></div>
+      <div class="arabic">سُبْحَانَ رَبِّيَ الْعَظِيمِ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">پاک ہے میرا رب جو بہت بڑا ہے۔</div>
+        <div class="meaning-en">Glory be to my Lord, the Most Great.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="3">
+      <div class="kalima-urdu-name">قومہ</div>
+      <div class="rule"></div>
+      <div class="arabic">
+        <div class="arabic-line">سَمِعَ اللّٰهُ لِمَنْ حَمِدَهُ</div>
+        <div class="arabic-line" style="margin-bottom:0;">رَبَّنَا لَكَ الْحَمْدُ</div>
+      </div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اللہ نے سن لیا اس کی جس نے اس کی تعریف کی۔ اے ہمارے رب! تیرے ہی لیے تمام تعریفیں ہیں۔</div>
+        <div class="meaning-en">Allah hears whoever praises Him. Our Lord, all praise is for You.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="4">
+      <div class="kalima-urdu-name">تسبیحِ سجدہ</div>
+      <div class="rule"></div>
+      <div class="arabic">سُبْحَانَ رَبِّيَ الْأَعْلٰى</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">پاک ہے میرا رب جو سب سے بلند ہے۔</div>
+        <div class="meaning-en">Glory be to my Lord, the Most High.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="5">
+      <div class="kalima-urdu-name">تشہد (اَلتَّحِیّات)</div>
+      <div class="rule"></div>
+      <div class="arabic">اَلتَّحِيَّاتُ لِلّٰهِ وَالصَّلَوَاتُ وَالطَّيِّبَاتُ، اَلسَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللّٰهِ وَبَرَكَاتُهُ، اَلسَّلَامُ عَلَيْنَا وَعَلٰى عِبَادِ اللّٰهِ الصَّالِحِينَ، أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللّٰهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">تمام زبانی، بدنی اور مالی عبادتیں اللہ کے لیے ہیں۔ اے نبی! آپ پر سلامتی ہو اور اللہ کی رحمت اور اس کی برکتیں ہوں۔ ہم پر اور اللہ کے نیک بندوں پر سلامتی ہو۔ میں گواہی دیتا ہوں کہ اللہ کے سوا کوئی معبود نہیں اور میں گواہی دیتا ہوں کہ محمد ﷺ اس کے بندے اور رسول ہیں۔</div>
+        <div class="meaning-en">All greetings, prayers, and good things are due to Allah. Peace be upon you, O Prophet, and the mercy of Allah and His blessings. Peace be upon us and upon the righteous servants of Allah. I bear witness that there is no god but Allah, and I bear witness that Muhammad is His servant and Messenger.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="6">
+      <div class="kalima-urdu-name">دُرُود شریف</div>
+      <div class="rule"></div>
+      <div class="arabic">
+        <div class="arabic-line">اَللّٰهُمَّ صَلِّ عَلٰى مُحَمَّدٍ وَعَلٰى آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلٰى إِبْرَاهِيمَ وَعَلٰى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ</div>
+        <div class="arabic-line" style="margin-bottom:0;">اَللّٰهُمَّ بَارِكْ عَلٰى مُحَمَّدٍ وَعَلٰى آلِ مُحَمَّدٍ، كَمَا بَارَكْتَ عَلٰى إِبْرَاهِيمَ وَعَلٰى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ</div>
+      </div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اے اللہ! رحمت نازل فرما محمد ﷺ پر اور محمد ﷺ کی آل پر، جیسے تُو نے رحمت نازل فرمائی ابراہیم علیہ السلام پر اور ابراہیم علیہ السلام کی آل پر، بے شک تُو تعریف والا، بزرگی والا ہے۔ اے اللہ! برکت نازل فرما محمد ﷺ پر اور محمد ﷺ کی آل پر، جیسے تُو نے برکت نازل فرمائی ابراہیم علیہ السلام پر اور ابراہیم علیہ السلام کی آل پر، بے شک تُو تعریف والا، بزرگی والا ہے۔</div>
+        <div class="meaning-en">O Allah, send blessings upon Muhammad and the family of Muhammad, as You sent blessings upon Ibrahim and the family of Ibrahim; indeed You are Praiseworthy, Glorious. O Allah, send prosperity upon Muhammad and the family of Muhammad, as You sent prosperity upon Ibrahim and the family of Ibrahim; indeed You are Praiseworthy, Glorious.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="7">
+      <div class="kalima-urdu-name">دعائے ماثورہ</div>
+      <div class="rule"></div>
+      <div class="arabic">اَللّٰهُمَّ إِنِّي ظَلَمْتُ نَفْسِي ظُلْمًا كَثِيرًا، وَلَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ، فَاغْفِرْ لِي مَغْفِرَةً مِنْ عِنْدِكَ وَارْحَمْنِي، إِنَّكَ أَنْتَ الْغَفُورُ الرَّحِيمُ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اے اللہ! میں نے اپنے آپ پر بہت ظلم کیا ہے، اور تیرے سوا کوئی گناہوں کو معاف نہیں کرتا، پس مجھے اپنی طرف سے معاف فرما دے اور مجھ پر رحم فرما، بے شک تُو ہی بخشنے والا، رحم فرمانے والا ہے۔</div>
+        <div class="meaning-en">O Allah, I have greatly wronged myself, and none forgives sins except You; so grant me forgiveness from You and have mercy on me — indeed You are the Forgiving, the Merciful.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="8">
+      <div class="kalima-urdu-name">دعائے قنوت</div>
+      <div class="rule"></div>
+      <div class="arabic">
+        <div class="arabic-line">اَللّٰهُمَّ إِنَّا نَسْتَعِينُكَ وَنَسْتَغْفِرُكَ وَنُؤْمِنُ بِكَ وَنَتَوَكَّلُ عَلَيْكَ وَنُثْنِي عَلَيْكَ الْخَيْرَ وَنَشْكُرُكَ وَلَا نَكْفُرُكَ وَنَخْلَعُ وَنَتْرُكُ مَنْ يَفْجُرُكَ</div>
+        <div class="arabic-line" style="margin-bottom:0;">اَللّٰهُمَّ إِيَّاكَ نَعْبُدُ وَلَكَ نُصَلِّي وَنَسْجُدُ وَإِلَيْكَ نَسْعَى وَنَحْفِدُ نَرْجُو رَحْمَتَكَ وَنَخْشَى عَذَابَكَ إِنَّ عَذَابَكَ بِالْكُفَّارِ مُلْحِقٌ</div>
+      </div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اے اللہ! ہم تجھ سے مدد چاہتے ہیں اور تجھ سے بخشش مانگتے ہیں اور تجھ پر ایمان لاتے ہیں اور تجھ پر بھروسہ کرتے ہیں اور تیری تعریف بھلائی کے ساتھ کرتے ہیں اور تیرا شکر ادا کرتے ہیں اور تیری ناشکری نہیں کرتے، اور ہم اسے چھوڑتے اور الگ ہوتے ہیں جو تیری نافرمانی کرے۔ اے اللہ! ہم تیری ہی عبادت کرتے ہیں اور تیرے ہی لیے نماز پڑھتے ہیں اور سجدہ کرتے ہیں اور تیری ہی طرف دوڑتے اور کوشش کرتے ہیں، ہم تیری رحمت کی امید رکھتے ہیں اور تیرے عذاب سے ڈرتے ہیں، بے شک تیرا عذاب کافروں کو پہنچنے والا ہے۔</div>
+        <div class="meaning-en">O Allah, we seek Your help and ask Your forgiveness, and we believe in You and rely on You, and we praise You with all good, and we thank You and do not disbelieve in You, and we forsake and turn away from whoever disobeys You. O Allah, You alone we worship, and to You we pray and prostrate, and to You we hasten and strive; we hope for Your mercy and fear Your punishment — indeed Your punishment overtakes the disbelievers.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="9">
+      <div class="kalima-urdu-name">دعائے جنازہ (بالغ)</div>
+      <div class="rule"></div>
+      <div class="arabic">اَللّٰهُمَّ اغْفِرْ لِحَيِّنَا وَمَيِّتِنَا وَشَاهِدِنَا وَغَائِبِنَا وَصَغِيرِنَا وَكَبِيرِنَا وَذَكَرِنَا وَأُنْثَانَا، اَللّٰهُمَّ مَنْ أَحْيَيْتَهُ مِنَّا فَأَحْيِهِ عَلَى الْإِسْلَامِ، وَمَنْ تَوَفَّيْتَهُ مِنَّا فَتَوَفَّهُ عَلَى الْإِيمَانِ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اے اللہ! ہمارے زندہ اور مردہ کو، حاضر اور غائب کو، چھوٹے اور بڑے کو، مرد اور عورت کو بخش دے۔ اے اللہ! ہم میں سے جسے تُو زندہ رکھے اسے اسلام پر زندہ رکھ، اور جسے تُو موت دے اسے ایمان پر موت دے۔</div>
+        <div class="meaning-en">O Allah, forgive our living and our dead, those present and those absent, our young and our old, our males and our females. O Allah, whoever You keep alive among us, keep him alive upon Islam, and whoever You cause to die among us, cause him to die upon faith.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="10">
+      <div class="kalima-urdu-name">دعائے جنازہ (نابالغ لڑکا)</div>
+      <div class="rule"></div>
+      <div class="arabic">اَللّٰهُمَّ اجْعَلْهُ لَنَا فَرَطًا وَاجْعَلْهُ لَنَا أَجْرًا وَذُخْرًا وَاجْعَلْهُ لَنَا شَافِعًا وَمُشَفَّعًا</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اے اللہ! اس بچے کو ہمارے لیے آگے بھیجا ہوا بنا، اور اسے ہمارے لیے اجر اور ذخیرہ بنا، اور اسے ہمارے لیے سفارش کرنے والا اور جس کی سفارش قبول کی جائے، بنا دے۔</div>
+        <div class="meaning-en">O Allah, make him a preceding reward for us, and make him a reward and a treasure for us, and make him an intercessor for us, one whose intercession is accepted.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="11">
+      <div class="kalima-urdu-name">دعائے جنازہ (نابالغ لڑکی)</div>
+      <div class="rule"></div>
+      <div class="arabic">اَللّٰهُمَّ اجْعَلْهَا لَنَا فَرَطًا وَاجْعَلْهَا لَنَا أَجْرًا وَذُخْرًا وَاجْعَلْهَا لَنَا شَافِعَةً وَمُشَفَّعَةً</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اے اللہ! اس بچی کو ہمارے لیے آگے بھیجا ہوا بنا، اور اسے ہمارے لیے اجر اور ذخیرہ بنا، اور اسے ہمارے لیے سفارش کرنے والی اور جس کی سفارش قبول کی جائے، بنا دے۔</div>
+        <div class="meaning-en">O Allah, make her a preceding reward for us, and make her a reward and a treasure for us, and make her an intercessor for us, one whose intercession is accepted.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="12">
+      <div class="kalima-urdu-name">اذان</div>
+      <div class="rule"></div>
+      <div class="arabic">
+        <div class="arabic-line">اَللّٰهُ أَكْبَرُ، اَللّٰهُ أَكْبَرُ، اَللّٰهُ أَكْبَرُ، اَللّٰهُ أَكْبَرُ</div>
+        <div class="arabic-line">أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللّٰهُ، أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللّٰهُ</div>
+        <div class="arabic-line">أَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللّٰهِ، أَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللّٰهِ</div>
+        <div class="arabic-line">حَيَّ عَلَى الصَّلَاةِ، حَيَّ عَلَى الصَّلَاةِ</div>
+        <div class="arabic-line">حَيَّ عَلَى الْفَلَاحِ، حَيَّ عَلَى الْفَلَاحِ</div>
+        <div class="arabic-line">اَللّٰهُ أَكْبَرُ، اَللّٰهُ أَكْبَرُ</div>
+        <div class="arabic-line" style="margin-bottom:0;">لَا إِلٰهَ إِلَّا اللّٰهُ</div>
+      </div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اللہ سب سے بڑا ہے (چار بار)۔ میں گواہی دیتا ہوں کہ اللہ کے سوا کوئی معبود نہیں (دو بار)۔ میں گواہی دیتا ہوں کہ محمد ﷺ اللہ کے رسول ہیں (دو بار)۔ نماز کی طرف آؤ (دو بار)۔ کامیابی کی طرف آؤ (دو بار)۔ اللہ سب سے بڑا ہے (دو بار)۔ اللہ کے سوا کوئی معبود نہیں۔ (فجر کی اذان میں "حَیَّ عَلَی الْفَلَاح" کے بعد "اَلصَّلَاۃُ خَیْرٌ مِّنَ النَّوْمِ" دو بار کہا جاتا ہے۔)</div>
+        <div class="meaning-en">Allah is the Greatest (×4). I bear witness there is no god but Allah (×2). I bear witness Muhammad is the Messenger of Allah (×2). Come to prayer (×2). Come to success (×2). Allah is the Greatest (×2). There is no god but Allah. (For Fajr only, "Prayer is better than sleep" is added twice after "Come to success".)</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="13">
+      <div class="kalima-urdu-name">اقامت</div>
+      <div class="rule"></div>
+      <div class="arabic">
+        <div class="arabic-line">اَللّٰهُ أَكْبَرُ، اَللّٰهُ أَكْبَرُ، اَللّٰهُ أَكْبَرُ، اَللّٰهُ أَكْبَرُ</div>
+        <div class="arabic-line">أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللّٰهُ، أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللّٰهُ</div>
+        <div class="arabic-line">أَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللّٰهِ، أَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللّٰهِ</div>
+        <div class="arabic-line">حَيَّ عَلَى الصَّلَاةِ، حَيَّ عَلَى الصَّلَاةِ</div>
+        <div class="arabic-line">حَيَّ عَلَى الْفَلَاحِ، حَيَّ عَلَى الْفَلَاحِ</div>
+        <div class="arabic-line">قَدْ قَامَتِ الصَّلَاةُ، قَدْ قَامَتِ الصَّلَاةُ</div>
+        <div class="arabic-line">اَللّٰهُ أَكْبَرُ، اَللّٰهُ أَكْبَرُ</div>
+        <div class="arabic-line" style="margin-bottom:0;">لَا إِلٰهَ إِلَّا اللّٰهُ</div>
+      </div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اللہ سب سے بڑا ہے (چار بار)۔ میں گواہی دیتا ہوں کہ اللہ کے سوا کوئی معبود نہیں (دو بار)۔ میں گواہی دیتا ہوں کہ محمد ﷺ اللہ کے رسول ہیں (دو بار)۔ نماز کی طرف آؤ (دو بار)۔ کامیابی کی طرف آؤ (دو بار)۔ بے شک نماز کھڑی ہو گئی (دو بار)۔ اللہ سب سے بڑا ہے (دو بار)۔ اللہ کے سوا کوئی معبود نہیں۔</div>
+        <div class="meaning-en">Allah is the Greatest (×4). I bear witness there is no god but Allah (×2). I bear witness Muhammad is the Messenger of Allah (×2). Come to prayer (×2). Come to success (×2). The prayer has begun (×2). Allah is the Greatest (×2). There is no god but Allah.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="14">
+      <div class="kalima-urdu-name">فجر کی اذان</div>
+      <div class="rule"></div>
+      <div class="arabic">
+        <div class="arabic-line">اَللّٰهُ أَكْبَرُ، اَللّٰهُ أَكْبَرُ، اَللّٰهُ أَكْبَرُ، اَللّٰهُ أَكْبَرُ</div>
+        <div class="arabic-line">أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللّٰهُ، أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللّٰهُ</div>
+        <div class="arabic-line">أَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللّٰهِ، أَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللّٰهِ</div>
+        <div class="arabic-line">حَيَّ عَلَى الصَّلَاةِ، حَيَّ عَلَى الصَّلَاةِ</div>
+        <div class="arabic-line">حَيَّ عَلَى الْفَلَاحِ، حَيَّ عَلَى الْفَلَاحِ</div>
+        <div class="arabic-line">اَلصَّلَاةُ خَيْرٌ مِنَ النَّوْمِ، اَلصَّلَاةُ خَيْرٌ مِنَ النَّوْمِ</div>
+        <div class="arabic-line">اَللّٰهُ أَكْبَرُ، اَللّٰهُ أَكْبَرُ</div>
+        <div class="arabic-line" style="margin-bottom:0;">لَا إِلٰهَ إِلَّا اللّٰهُ</div>
+      </div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اللہ سب سے بڑا ہے (چار بار)۔ میں گواہی دیتا ہوں کہ اللہ کے سوا کوئی معبود نہیں (دو بار)۔ میں گواہی دیتا ہوں کہ محمد ﷺ اللہ کے رسول ہیں (دو بار)۔ نماز کی طرف آؤ (دو بار)۔ کامیابی کی طرف آؤ (دو بار)۔ نماز نیند سے بہتر ہے (دو بار)۔ اللہ سب سے بڑا ہے (دو بار)۔ اللہ کے سوا کوئی معبود نہیں۔</div>
+        <div class="meaning-en">Allah is the Greatest (×4). I bear witness there is no god but Allah (×2). I bear witness Muhammad is the Messenger of Allah (×2). Come to prayer (×2). Come to success (×2). Prayer is better than sleep (×2). Allah is the Greatest (×2). There is no god but Allah. — This extra line is added only in the Fajr (dawn) azaan, after "come to success".</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="15">
+      <div class="kalima-urdu-name">اذان کے بعد کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">
+        <div class="arabic-line">اَللّٰهُمَّ صَلِّ عَلٰى مُحَمَّدٍ نِ النَّبِيِّ الْأُمِّيِّ وَعَلٰى آلِهِ وَسَلِّمْ تَسْلِيمًا</div>
+        <div class="arabic-line" style="margin-bottom:0;">اَللّٰهُمَّ رَبَّ هٰذِهِ الدَّعْوَةِ التَّامَّةِ وَالصَّلَاةِ الْقَائِمَةِ آتِ مُحَمَّدَنِ الْوَسِيلَةَ وَالْفَضِيلَةَ وَابْعَثْهُ مَقَامًا مَحْمُودًا نِ الَّذِي وَعَدْتَهُ إِنَّكَ لَا تُخْلِفُ الْمِيعَادَ</div>
+      </div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">درود شریف کا پڑھنا مستحب ہے، خواہ کوئی سا درود شریف پڑھے، مثلاً: اے اللہ! رحمت نازل فرما محمد ﷺ نبیِ اُمّی پر اور ان کی آل پر، اور سلامتی نازل فرما۔ پھر یہ دعا پڑھے: اے اللہ! اس کامل پکار اور قائم ہونے والی نماز کے رب! محمد ﷺ کو وسیلہ اور فضیلت عطا فرما، اور انہیں اس مقامِ محمود پر فائز فرما جس کا آپ نے ان سے وعدہ فرمایا ہے، بے شک آپ وعدہ خلافی نہیں فرماتے۔</div>
+        <div class="meaning-en">Reciting Darood (blessings on the Prophet) before this dua is preferred — e.g.: O Allah, send blessings upon Muhammad, the unlettered Prophet, and upon his family, and grant them peace. Then say: O Allah, Lord of this perfect call and the prayer about to be established, grant Muhammad the wasilah (intercession) and excellence, and raise him to the praised station which You have promised him — indeed You do not fail in Your promise.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottombar">
+    <button class="nav-btn" onclick="goSlide('namaz',-1)">◀ &nbsp;پچھلا</button>
+    <button class="nav-btn" onclick="showPage('page-contents')">فہرست</button>
+    <div class="dots" id="namazDots"></div>
+    <button class="nav-btn" onclick="goSlide('namaz',1)">اگلا&nbsp; ▶</button>
+  </div>
+</div>
+
+<!-- ===================== PAGE 5: MASNOON DUAYEN CHAPTER ===================== -->
+<div class="page chapter-page" id="page-masnoon">
+  <div class="topbar">
+    <div class="brand">مسنون دعائیں</div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <button class="toggle-btn" id="masnoonMeaningToggle" onclick="toggleMeaning('masnoon')">ترجمہ دکھائیں</button>
+      <div class="counter" id="masnoonCounter">1 / 25</div>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <div class="slide active" data-index="0">
+      <div class="kalima-urdu-name">کسی بھی اچھے کام شروع کرنے سے پہلے</div>
+      <div class="rule"></div>
+      <div class="arabic">بِسْمِ اللَّهِ الرَّحْمٰنِ الرَّحِيمِ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اللہ کے نام کے ساتھ جو نہایت مہربان، رحم فرمانے والا ہے۔</div>
+        <div class="meaning-en">In the name of Allah, the Most Gracious, the Most Merciful.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="1">
+      <div class="kalima-urdu-name">وضو سے پہلے کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">بِسْمِ اللَّهِ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">شروع کرتا ہوں اللہ کے نام سے۔</div>
+        <div class="meaning-en">In the name of Allah.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="1">
+      <div class="kalima-urdu-name">وضو کے درمیان کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">اَللّٰهُمَّ اغْفِرْ لِي ذَنْبِي وَوَسِّعْ لِي فِي دَارِي وَبَارِكْ لِي فِي رِزْقِي</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اے اللہ! میرے گناہ بخش دیجیے اور میرا گھر کشادہ کردیجیے اور میری روزی میں برکت عطا فرمائیے۔</div>
+        <div class="meaning-en">O Allah, forgive my sin, make my home spacious for me, and bless my provision.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="2">
+      <div class="kalima-urdu-name">وضو کے بعد کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللّٰهُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ، اَللّٰهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">میں گواہی دیتا ہوں کہ اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے اس کا کوئی شریک نہیں، اور میں گواہی دیتا ہوں کہ محمد ﷺ اس کے بندے اور رسول ہیں۔ اے اللہ! مجھے توبہ کرنے والوں میں سے بنا اور مجھے پاک رہنے والوں میں سے بنا۔</div>
+        <div class="meaning-en">I bear witness that there is no god but Allah, alone without partner, and I bear witness that Muhammad is His servant and Messenger. O Allah, make me among those who repent and among those who purify themselves.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="3">
+      <div class="kalima-urdu-name">بیت الخلاء جانے پر</div>
+      <div class="rule"></div>
+      <div class="arabic">بِسْمِ اللَّهِ، اَللّٰهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">شروع اللہ کے نام کے ساتھ۔ اے اللہ! میں آپ کی پناہ پکڑتا ہوں گندے مردوں اور گندی عورتوں سے۔</div>
+        <div class="meaning-en">In the name of Allah. O Allah, I seek refuge in You from male and female devils (impurity).</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="4">
+      <div class="kalima-urdu-name">بیت الخلاء سے نکلنے پر</div>
+      <div class="rule"></div>
+      <div class="arabic">غُفْرَانَكَ، اَلْحَمْدُ لِلّٰهِ الَّذِي أَذْهَبَ عَنِّي الْأَذَى وَعَافَانِي</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">بخشش چاہتا ہوں میں آپ کی۔ شکر ہے اللہ کا جس نے مجھ سے گندگی دور کردی اور مجھے صحت دی۔</div>
+        <div class="meaning-en">I seek Your forgiveness. All praise is for Allah who removed discomfort from me and gave me health.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="5">
+      <div class="kalima-urdu-name">گھر سے نکلنے کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اللہ کے نام کے ساتھ، میں نے اللہ پر بھروسہ کیا، کوئی طاقت اور قوت نہیں مگر اللہ کی مدد سے۔</div>
+        <div class="meaning-en">In the name of Allah, I place my trust in Allah; there is no power and no strength except with Allah.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="6">
+      <div class="kalima-urdu-name">گھر میں داخل ہونے کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">اَللّٰهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ الْمَوْلَجِ وَخَيْرَ الْمَخْرَجِ، بِسْمِ اللَّهِ وَلَجْنَا وَبِسْمِ اللَّهِ خَرَجْنَا وَعَلَى اللَّهِ رَبِّنَا تَوَكَّلْنَا</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اے اللہ! میں آپ سے بہترین داخلے اور بہترین خروج کا سوال کرتا ہوں۔ اللہ کے نام سے ہم داخل ہوئے اور اللہ کے نام سے ہم نکلے، اور اللہ ہی پر جو ہمارا رب ہے ہم نے بھروسہ کیا۔</div>
+        <div class="meaning-en">O Allah, I ask You for the best entrance and the best exit. In the name of Allah we enter, and in the name of Allah we leave, and upon Allah, our Lord, we place our trust.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="7">
+      <div class="kalima-urdu-name">سوار ہو جانے کے بعد کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">اَلْحَمْدُ لِلّٰهِ، سُبْحَانَ الَّذِي سَخَّرَ لَنَا هٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلٰى رَبِّنَا لَمُنْقَلِبُونَ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">شکر ہے اللہ کا، پاک ہے وہ ذات جس نے یہ سواری ہمارے لیے مسخر کردی اور ہم اس کو قابو میں نہیں لاسکتے تھے، اور بے شک ہم اپنے رب کی طرف لوٹنے والے ہیں۔</div>
+        <div class="meaning-en">All praise is for Allah. Glory be to the One who subjected this to us, for we could not have done it ourselves, and to our Lord we will surely return.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="7">
+      <div class="kalima-urdu-name">مسجد میں جانے کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">بِسْمِ اللَّهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلٰى رَسُولِ اللَّهِ، اَللّٰهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اللہ کے نام کے ساتھ، اور درود و سلام ہو اللہ کے رسول ﷺ پر۔ اے اللہ! میرے لیے اپنی رحمت کے دروازے کھول دیجیے۔</div>
+        <div class="meaning-en">In the name of Allah, and peace and blessings upon the Messenger of Allah. O Allah, open for me the doors of Your mercy.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="8">
+      <div class="kalima-urdu-name">مسجد سے نکلنے کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">بِسْمِ اللَّهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلٰى رَسُولِ اللَّهِ، اَللّٰهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اللہ کے نام کے ساتھ، اور درود و سلام ہو اللہ کے رسول ﷺ پر۔ اے اللہ! بے شک میں آپ سے آپ کے فضل کا سوال کرتا ہوں۔</div>
+        <div class="meaning-en">In the name of Allah, and peace and blessings upon the Messenger of Allah. O Allah, indeed I ask You from Your bounty.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="9">
+      <div class="kalima-urdu-name">کھانے سے پہلے کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">بِسْمِ اللَّهِ وَعَلٰى بَرَكَةِ اللَّهِ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اللہ کے نام کے ساتھ اور اللہ کی برکت پر ہم یہ کھانا کھاتے ہیں۔</div>
+        <div class="meaning-en">In the name of Allah and with the blessing of Allah.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="10">
+      <div class="kalima-urdu-name">کھانے سے پہلے بھول جائے تو یہ دعا پڑھے</div>
+      <div class="rule"></div>
+      <div class="arabic">بِسْمِ اللَّهِ أَوَّلَهُ وَآخِرَهُ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اللہ کے نام کے ساتھ کھانے کے شروع میں بھی اور اس کے آخر میں بھی۔</div>
+        <div class="meaning-en">In the name of Allah at its beginning and its end.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="11">
+      <div class="kalima-urdu-name">کھانے کے بعد کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">اَلْحَمْدُ لِلّٰهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">شکر ہے اللہ کا جس نے ہمیں کھلایا اور پلایا اور ہم کو مسلمان بنایا۔</div>
+        <div class="meaning-en">All praise is for Allah who fed us, gave us drink, and made us Muslims.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="12">
+      <div class="kalima-urdu-name">کسی کے کھلانے پر دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">اَللّٰهُمَّ أَطْعِمْ مَنْ أَطْعَمَنِي وَاسْقِ مَنْ سَقَانِي</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اے اللہ! کھلائیے آپ اس کو جس نے مجھے کھلایا اور پلائیے آپ اس کو جس نے مجھے پلایا۔</div>
+        <div class="meaning-en">O Allah, feed the one who has fed me, and give drink to the one who has given me drink.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="13">
+      <div class="kalima-urdu-name">دودھ پینے کے بعد کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">اَللّٰهُمَّ بَارِكْ لَنَا فِيهِ وَزِدْنَا مِنْهُ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اے اللہ! تو اس دودھ میں ہمیں برکت عطا فرما اور اس میں زیادتی عطا فرما۔</div>
+        <div class="meaning-en">O Allah, bless it for us and give us more of it.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="14">
+      <div class="kalima-urdu-name">پانی پینے کے بعد کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">اَلْحَمْدُ لِلّٰهِ الَّذِي سَقَانَا عَذْبًا فُرَاتًا بِرَحْمَتِهِ وَلَمْ يَجْعَلْهُ مِلْحًا أُجَاجًا بِذُنُوبِنَا</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">شکر ہے اللہ کا جس نے ہمیں اپنے فضل سے میٹھی اور خوشگوار چیز پلائی جو آسانی سے اترنے والی ہے، اور ہمارے گناہوں کی وجہ سے اس کو کڑوا اور کھارا نہیں بنایا۔</div>
+        <div class="meaning-en">All praise is for Allah who gave us sweet, fresh water by His mercy, and did not make it salty and bitter because of our sins.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="15">
+      <div class="kalima-urdu-name">افطار کے وقت کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">اَللّٰهُمَّ لَكَ صُمْتُ وَعَلٰى رِزْقِكَ أَفْطَرْتُ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اے اللہ! آپ ہی کے لیے میں نے روزہ رکھا اور آپ ہی کے رزق پر افطار کرتا ہوں۔</div>
+        <div class="meaning-en">O Allah, for You I have fasted, and upon Your provision I break my fast.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="16">
+      <div class="kalima-urdu-name">افطار کے بعد کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">پیاس جاتی رہی اور رگیں تر ہوگئیں اور انشاءاللہ ثواب ثابت ہوگیا۔</div>
+        <div class="meaning-en">The thirst has gone, the veins are moistened, and the reward is confirmed, if Allah wills.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="17">
+      <div class="kalima-urdu-name">نیا کپڑا پہننے کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">اَلْحَمْدُ لِلّٰهِ الَّذِي كَسَانِي مَا أُوَارِي بِهِ عَوْرَتِي وَأَتَجَمَّلُ بِهِ فِي حَيَاتِي</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">شکر ہے اللہ کا جس نے مجھ کو لباس پہنایا جس میں اپنا ستر ڈھانکتا ہوں اور جس سے اپنی زندگی میں زینت کرتا ہوں۔</div>
+        <div class="meaning-en">All praise is for Allah who clothed me with what covers my private parts and with which I beautify myself in my life.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="18">
+      <div class="kalima-urdu-name">سوتے وقت کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">اَللّٰهُمَّ بِاسْمِكَ أَمُوتُ وَأَحْيَا</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اے اللہ! میں آپ ہی کے نام کے ساتھ مرتا ہوں اور جیتا ہوں۔</div>
+        <div class="meaning-en">O Allah, in Your name I die and I live.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="19">
+      <div class="kalima-urdu-name">سو کر اٹھنے کے وقت کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">اَلْحَمْدُ لِلّٰهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">شکر ہے اللہ کا جس نے ہمیں زندہ کیا بعد اس کے کہ اس نے موت دی اور اسی کی طرف اٹھنا ہے۔</div>
+        <div class="meaning-en">All praise is for Allah who gave us life after having given us death, and to Him is the return.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="20">
+      <div class="kalima-urdu-name">جب نیا چاند دیکھے تو یہ دعا پڑھے</div>
+      <div class="rule"></div>
+      <div class="arabic">اَللّٰهُمَّ أَهِلَّهُ عَلَيْنَا بِالْيُمْنِ وَالْإِيمَانِ وَالسَّلَامَةِ وَالْإِسْلَامِ، رَبِّي وَرَبُّكَ اللّٰهُ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اے اللہ! اس چاند کو ہم پر برکت، ایمان، سلامتی اور اسلام کے ساتھ طلوع فرما، میرا اور تیرا رب اللہ ہے۔</div>
+        <div class="meaning-en">O Allah, bring this moon upon us with security, faith, safety, and Islam. My Lord and your Lord is Allah.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="21">
+      <div class="kalima-urdu-name">مریض کی عیادت کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">لَا بَأْسَ طَهُورٌ إِنْ شَاءَ اللَّهُ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">کوئی حرج نہیں، یہ بیماری گناہوں سے پاک کرنے والی ہے، اگر اللہ نے چاہا۔</div>
+        <div class="meaning-en">No harm — it will be a purification, if Allah wills.</div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="22">
+      <div class="kalima-urdu-name">مصافحہ کرتے وقت کی دعا</div>
+      <div class="rule"></div>
+      <div class="arabic">يَغْفِرُ اللَّهُ لَنَا وَلَكُمْ</div>
+      <div class="meaning-wrap hidden">
+        <div class="meaning-urdu">اللہ ہماری اور تمہاری مغفرت فرمائے۔</div>
+        <div class="meaning-en">May Allah forgive us and you.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottombar">
+    <button class="nav-btn" onclick="goSlide('masnoon',-1)">◀ &nbsp;پچھلا</button>
+    <button class="nav-btn" onclick="showPage('page-contents')">فہرست</button>
+    <div class="dots" id="masnoonDots"></div>
+    <button class="nav-btn" onclick="goSlide('masnoon',1)">اگلا&nbsp; ▶</button>
+  </div>
+</div>
+
+<script>
+  /* ---------- Page switching ---------- */
+  function showPage(id){
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  /* ---------- Slide engine (shared by kalima & namaz chapters) ---------- */
+  const chapters = {
+    kalima: { current: 0, meaningsOn: false, root: document.getElementById('page-kalima') },
+    namaz:  { current: 0, meaningsOn: false, root: document.getElementById('page-namaz') },
+    masnoon:{ current: 0, meaningsOn: false, root: document.getElementById('page-masnoon') }
+  };
+
+  Object.keys(chapters).forEach(key => {
+    const ch = chapters[key];
+    const slides = ch.root.querySelectorAll('.slide');
+    const dotsWrap = ch.root.querySelector('#' + key + 'Dots');
+    slides.forEach((s, i) => {
+      const d = document.createElement('button');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.onclick = () => showSlide(key, i);
+      dotsWrap.appendChild(d);
+    });
+    ch.slides = slides;
+    ch.dots = dotsWrap.querySelectorAll('.dot');
+    ch.counterEl = document.getElementById(key + 'Counter');
+  });
+
+  function showSlide(key, i){
+    const ch = chapters[key];
+    ch.slides[ch.current].classList.remove('active');
+    ch.dots[ch.current].classList.remove('active');
+    ch.current = i;
+    ch.slides[ch.current].classList.add('active');
+    ch.dots[ch.current].classList.add('active');
+    ch.counterEl.textContent = (ch.current + 1) + ' / ' + ch.slides.length;
+  }
+
+  function goSlide(key, dir){
+    const ch = chapters[key];
+    const next = ch.current + dir;
+    if (next < 0 || next >= ch.slides.length) return;
+    showSlide(key, next);
+  }
+
+  function toggleMeaning(key){
+    const ch = chapters[key];
+    ch.meaningsOn = !ch.meaningsOn;
+    ch.root.querySelectorAll('.meaning-wrap').forEach(m => {
+      m.classList.toggle('hidden', !ch.meaningsOn);
+    });
+    const btn = document.getElementById(key + 'MeaningToggle');
+    btn.textContent = ch.meaningsOn ? 'ترجمہ چھپائیں' : 'ترجمہ دکھائیں';
+    btn.classList.toggle('on', ch.meaningsOn);
+  }
+
+  /* ---------- Keyboard & swipe (applies to whichever chapter page is active) ---------- */
+  function activeChapterKey(){
+    if (document.getElementById('page-kalima').classList.contains('active')) return 'kalima';
+    if (document.getElementById('page-namaz').classList.contains('active')) return 'namaz';
+    if (document.getElementById('page-masnoon').classList.contains('active')) return 'masnoon';
+    return null;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    const key = activeChapterKey();
+    if (!key) return;
+    if (e.key === 'ArrowRight') goSlide(key, -1);
+    if (e.key === 'ArrowLeft') goSlide(key, 1);
+    if (e.key === ' ') toggleMeaning(key);
+  });
+
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
+  document.addEventListener('touchend', e => {
+    const key = activeChapterKey();
+    if (!key) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 60) {
+      if (dx > 0) goSlide(key, -1); else goSlide(key, 1);
+    }
+  });
+</script>
+
+</body>
+</html>
